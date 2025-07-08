@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Certificate Template Upload</title>
+<link rel="stylesheet" href="styles.css" />
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Pacifico&family=Dancing+Script&family=Alex+Brush&display=swap" rel="stylesheet">
+</head>
+<body>
+  
+  <div id="popup" class="popup-message" style="display: none;">
+    <div>
+        <p>Do you Want to Save this field ?</p>
+        <button id="validSave">Yes</button>
+        <button id="cancelSave">No</button>
+    </div>
+  </div>
+  <img src="./images/CertGen.svg">
+  
+  <div class="inputArea">
+  <input type="file" id="excelUpload" />
+  <input type="file" id="imageUpload" accept="image/*" placeholder="Enter Certificate Template" />
+  </div>
+
+    <div id="myMenu" style="display: none;">
+       
+      <div class="input-group">
+         <label> Field Name <input id="fieldname" type="text" required placeholder="Enter field name" ></label>
+         <label>Font Size <input id="fontsizepicker" type="number" min="20" max="150"/></label> <br/>
+         <label>Font Color <input id="fontcolorpicker" type="color"/></label> <br/>
+         <label>Choose Font
+         <select id="fonttype">
+              <option>Times New Roman</option>
+              <option>Great Vibes</option>
+              <option>Pacifico</option>
+              <option>Dancing Script</option>
+              <option>Alex Brush</option>
+            
+         </select>
+        </label>
+      </div>  
+
+    </div>
+    
+  <div id="canvasContainer" style="position: relative;">
+
+    <canvas id="certificateCanvas"></canvas>
+    <div id="overlays" style="position: absolute; top: 0; left: 0;"></div>
+ 
+  </div>
+  <button id="genButton">Generate Certificates</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+
+

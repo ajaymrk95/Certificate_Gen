@@ -1,0 +1,230 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+body {
+
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+
+
+.inputArea
+{
+    display:flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 40px;
+    width:90%;
+    gap: 50px;
+    max-width: 700px;
+    flex-direction: column;
+    background-color: #000000;
+    border: solid lightgray 2px;
+    border-radius: 20px;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    background-image: url(images/bg-boost-desktop.svg);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Monrserrat',sans-serif;
+}
+
+
+
+#imageUpload,#excelUpload  {
+    padding: 20px 100px; 
+    color: black;
+    width:95%;
+    background: whitesmoke;
+    font-family: 'Times New Roman';
+    border-radius: 10px;
+    border: none;
+    margin-left: 18px;
+    max-width: 550px; 
+  
+    font-size: 1rem; 
+    outline: none;
+    margin-right: 20px; 
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); 
+}
+ 
+
+
+
+#myMenu {
+  background-color: #ffffff;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d1d5db;
+  border-radius: 16px;
+  max-width: 600px;
+  height: 30vh;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+
+#myMenu .input-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-direction: column;
+  gap: 10px;
+  height: 90%;
+}
+
+#myMenu label {
+  display: inline-block;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #111827;
+  letter-spacing: 0.03em;
+  min-width: 100px;
+  text-align: center;
+  flex-shrink: 0;
+  transition: color 0.3s;
+}
+
+#myMenu input {
+  display: inline-block;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+  font-weight: 400;
+  color: #1f2937;
+  outline: none;
+  background-color: #f9fafb;
+  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 10px 12px;
+  flex-grow: 1;
+  min-width: 200px;
+}
+
+#myMenu input[type ="color"] {
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
+  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+  font-weight: 400;
+  color: #1f2937;
+  outline: none;
+  background-color: #f9fafb;
+  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 0px!important;
+  padding: 0px 0px !important; 
+  flex-grow: 0 !important;
+  width: 40px !important;      
+  max-width: 40px !important; 
+  min-width: 0!important;
+}
+
+
+#myMenu input:focus {
+  border-color: #2563eb;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+}
+
+#canvasContainer {
+  background-color: #000000;
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 10px;
+  max-width: 90vw;
+  max-height: 70vh;
+  overflow: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+
+}
+
+canvas {
+  display: block;
+  max-width: 100%;
+  border: 1px dashed #888;
+  background-color: #fff;
+}
+
+#genButton {
+  padding: 10px 24px;
+  font-size: 1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+#genButton:hover {
+  background-color: #388e3c;
+}
+
+#overlays {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; 
+  z-index: 2;
+}
+
+#overlays .createdarea {
+  pointer-events: auto; 
+}
+
+.popup-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.popup-message > div {
+    background-color: whitesmoke;
+    padding: 20px;
+    border-radius: 8px;
+    font-size: large;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.popup-message button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#validSave {
+    background-color: #28a745;
+    color: white;
+}
+
+#cancelSave {
+    background-color: #dc3545;
+    color: white;
+}
