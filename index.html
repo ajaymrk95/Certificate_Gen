@@ -5,6 +5,7 @@
 <title>Certificate Template Upload</title>
 <link rel="stylesheet" href="styles.css" />
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Pacifico&family=Dancing+Script&family=Alex+Brush&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
 </head>
 <body>
   
@@ -25,9 +26,12 @@
     <div id="myMenu" style="display: none;">
        
       <div class="input-group">
-         <label> Field Name <input id="fieldname" type="text" required placeholder="Enter field name" ></label>
-         <label>Font Size <input id="fontsizepicker" type="number" min="20" max="150"/></label> <br/>
-         <label>Font Color <input id="fontcolorpicker" type="color"/></label> <br/>
+        <div class="form-row"><label> Field Name <input id="fieldname" type="text" required placeholder="Enter field name" ></label></div>
+        <div class="form-row"><label>Font Size <input id="fontsizepicker" type="number" min="20" max="150"/></label> <br/></label></div>
+       
+        <div class="form-row"><label> Font Color <input id="fontcolorpicker" type="color"/></label> <br/></label> <br/></label></div>
+    
+        <div class="form-row">
          <label>Choose Font
          <select id="fonttype">
               <option>Times New Roman</option>
@@ -38,6 +42,8 @@
             
          </select>
         </label>
+       </div>
+        
       </div>  
 
     </div>
