@@ -307,14 +307,20 @@
     for (let i = 0; i < excelobjs.length; i++) {
       const row = excelobjs[i];
 
-      const pdfCanvas = document.createElement("canvas");
-      const pdfctx = pdfCanvas.getContext("2d");
-      pdfCanvas.width = canvas.width;
-      pdfCanvas.height = canvas.height;
+      // const pdfCanvas = document.createElement("canvas");
+      // const pdfctx = pdfCanvas.getContext("2d");
+      // pdfCanvas.width = canvas.width;
+      // pdfCanvas.height = canvas.height;
 
-      pdfctx.drawImage(img, 0, 0);
+      //pdfctx.drawImage(img, 0, 0);
 
+          const pdf = new jsPDF({
+        orientation: canvas.width > canvas.height ? "landscape" : "portrait",
+        unit: "px",
+        format: [canvas.width, canvas.height]
+      });
 
+      pdf.addImage(img, "JPEG", 0, 0, canvas.width, canvas.height);
       for (const section of validSections) 
         {
           const fieldLabel = section.fontSettings.field.trim().toLowerCase();
@@ -322,32 +328,31 @@
 
           if (!textToDraw) continue;
 
+          // await document.fonts.ready; 
+          // await document.fonts.load(`${fontSettings.fontSize}px ${fontSettings.fontFamily}`);
 
-          await document.fonts.ready; 
-          await document.fonts.load(`${fontSettings.fontSize}px ${fontSettings.fontFamily}`);
+
+          // pdfctx.font = `${fontSettings.fontSize}px ${fontSettings.fontFamily}`;
+
+          // pdfctx.font = `${section.fontSettings.fontSize}px ${section.fontSettings.fontFamily}`;
+          // pdfctx.fillStyle = section.fontSettings.color;
+          // pdfctx.textAlign = "center";
+          // pdfctx.textBaseline = "middle";
+
+           const centerX = section.startX + section.rectWidth / 2; 
+           const centerY = section.startY + section.rectHeight / 2;
+
+          // pdfctx.fillText(textToDraw, centerX, centerY);
 
 
-          pdfctx.font = `${fontSettings.fontSize}px ${fontSettings.fontFamily}`;
+          pdf.setFont("times");
 
-          pdfctx.font = `${section.fontSettings.fontSize}px ${section.fontSettings.fontFamily}`;
-          pdfctx.fillStyle = section.fontSettings.color;
-          pdfctx.textAlign = "center";
-          pdfctx.textBaseline = "middle";
+          pdf.setFontSize(section.fontSettings.fontSize);
 
-          const centerX = section.startX + section.rectWidth / 2; 
-          const centerY = section.startY + section.rectHeight / 2;
+          pdf.setTextColor(section.fontSettings.color);
 
-          pdfctx.fillText(textToDraw, centerX, centerY);
+          pdf.text(textToDraw, centerX, centerY, {align: "center",baseline: "middle"});
         }
-
-      const pdf = new jsPDF({
-        orientation: canvas.width > canvas.height ? "landscape" : "portrait",
-        unit: "px",
-        format: [canvas.width, canvas.height]
-      });
-
-      const imgData = pdfCanvas.toDataURL("image/jpeg", 1.0);
-      pdf.addImage(imgData, "JPEG", 0, 0, canvas.width, canvas.height);
 
       const fileName = `${capitalizeName(row["name"])}.pdf`;
       const pdfBlob = pdf.output("blob");
