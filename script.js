@@ -277,95 +277,92 @@
 
 
 
-  document.getElementById("genButton").addEventListener("click", async (e) => {
-    e.preventDefault();
+    document.getElementById("genButton").addEventListener("click", async (e) => {
+      e.preventDefault();
 
-    if (!excelobjs.length) {
-      alert("Upload an Excel file first!");
-      return;
-    }
-    if (!imgFlag) {
-      alert("Upload a certificate image first!");
-      return;
-    }
-
-    const validSections = sections.filter(Boolean);
-    
-    if(validSections.length==0)
-    {
-       alert("Save Atleast a Valid Section or Text!");
-       return;
-    }
-    const zip = new JSZip();
-
-    
-    function capitalizeName(name) {
-        if (!name) return "";
-        return name.toString().toLowerCase().split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+      if (!excelobjs.length) {
+        alert("Upload an Excel file first!");
+        return;
+      }
+      if (!imgFlag) {
+        alert("Upload a certificate image first!");
+        return;
       }
 
-    for (let i = 0; i < excelobjs.length; i++) {
-      const row = excelobjs[i];
+      const validSections = sections.filter(Boolean);
+      
+      if(validSections.length==0)
+      {
+        alert("Save Atleast a Valid Section or Text!");
+        return;
+      }
+      const zip = new JSZip();
 
-      // const pdfCanvas = document.createElement("canvas");
-      // const pdfctx = pdfCanvas.getContext("2d");
-      // pdfCanvas.width = canvas.width;
-      // pdfCanvas.height = canvas.height;
-
-      //pdfctx.drawImage(img, 0, 0);
-
-          const pdf = new jsPDF({
-        orientation: canvas.width > canvas.height ? "landscape" : "portrait",
-        unit: "px",
-        format: [canvas.width, canvas.height]
-      });
-
-      pdf.addImage(img, "JPEG", 0, 0, canvas.width, canvas.height);
-      for (const section of validSections) 
-        {
-          const fieldLabel = section.fontSettings.field.trim().toLowerCase();
-          const textToDraw = (fieldLabel === "name") ? capitalizeName(row[fieldLabel] || "") : section.fontSettings.field;
-
-          if (!textToDraw) continue;
-
-          // await document.fonts.ready; 
-          // await document.fonts.load(`${fontSettings.fontSize}px ${fontSettings.fontFamily}`);
-
-
-          // pdfctx.font = `${fontSettings.fontSize}px ${fontSettings.fontFamily}`;
-
-          // pdfctx.font = `${section.fontSettings.fontSize}px ${section.fontSettings.fontFamily}`;
-          // pdfctx.fillStyle = section.fontSettings.color;
-          // pdfctx.textAlign = "center";
-          // pdfctx.textBaseline = "middle";
-
-           const centerX = section.startX + section.rectWidth / 2; 
-           const centerY = section.startY + section.rectHeight / 2;
-
-          // pdfctx.fillText(textToDraw, centerX, centerY);
-
-
-          pdf.setFont("times");
-
-          pdf.setFontSize(section.fontSettings.fontSize);
-
-          pdf.setTextColor(section.fontSettings.color);
-
-          pdf.text(textToDraw, centerX, centerY, {align: "center",baseline: "middle"});
+      
+      function capitalizeName(name) {
+          if (!name) return "";
+          return name.toString().toLowerCase().split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
         }
 
-      const fileName = `${capitalizeName(row["name"])}.pdf`;
-      const pdfBlob = pdf.output("blob");
-      zip.file(fileName, pdfBlob);
-    }
+      for (let i = 0; i < excelobjs.length; i++) {
+        const row = excelobjs[i];
+
+        const pdfCanvas = document.createElement("canvas");
+        const pdfctx = pdfCanvas.getContext("2d");
+        pdfCanvas.width = canvas.width;
+        pdfCanvas.height = canvas.height;
+
+        pdfctx.drawImage(img, 0, 0);
+
+        
+        
+        for (const section of validSections) 
+          {
+            const fieldLabel = section.fontSettings.field.trim().toLowerCase();
+            const textToDraw = (fieldLabel === "name") ? capitalizeName(row[fieldLabel] || "") : section.fontSettings.field;
+
+            if (!textToDraw) continue;
+
+            await document.fonts.ready; 
+            await document.fonts.load(`${section.fontSettings.fontSize}px ${section.fontSettings.fontFamily}`);
+
+
+            pdfctx.font = `${section.fontSettings.fontSize}px ${section.fontSettings.fontFamily}`;
+            pdfctx.fillStyle = section.fontSettings.color;
+            pdfctx.textAlign = "center";
+            pdfctx.textBaseline = "middle";
+
+            const centerX = section.startX + section.rectWidth / 2; 
+            const centerY = section.startY + section.rectHeight / 2;
+
+            pdfctx.fillText(textToDraw, centerX, centerY);
+
+          }
+
+        const imgData = pdfCanvas.toDataURL("image/jpeg", 1.0);
 
      
-    const zipName = prompt("Enter ZIP file name:", "Certificates.zip") || "Certificates.zip";
+        const pdf = new jsPDF({
+          orientation: canvas.width > canvas.height ? "landscape" : "portrait",
+          unit: "px",
+          format: [canvas.width, canvas.height]
+        });
 
-    zip.generateAsync({ type: "blob" }).then(function (blob) {
-    alert("Certificates are ready for download.");
-    saveAs(blob, zipName);
-    })
+        pdf.addImage(imgData, "JPEG", 0, 0, canvas.width, canvas.height);
 
 
- } );
+        const fileName = `${capitalizeName(row["name"])}.pdf`;
+        const pdfBlob = pdf.output("blob");
+        zip.file(fileName, pdfBlob);
+      }
+
+      
+      const zipName = prompt("Enter ZIP file name:", "Certificates.zip") || "Certificates.zip";
+
+      zip.generateAsync({ type: "blob" }).then(function (blob) {
+      alert("Certificates are ready for download.");
+      saveAs(blob, zipName);
+      })
+
+
+  } );
