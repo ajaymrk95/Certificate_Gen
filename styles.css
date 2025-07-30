@@ -55,6 +55,34 @@ body {
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); 
 }
  
+.instructions-container {
+  margin-top: 1rem;
+  padding: 1.2rem 1.5rem;
+  background-color: #f9f9f9;
+  border-left: 4px solid #0026ff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", sans-serif;
+}
+
+.instructions-container h3 {
+  margin-top: 0;
+  color: #007ff7;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.instructions-list {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.instructions-list li strong {
+  color: #222;
+}
 
 
 #myMenu {
