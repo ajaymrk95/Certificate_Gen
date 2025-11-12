@@ -54,7 +54,7 @@
 
             const result = XLSX.utils.sheet_to_json(sheet,{header:1});
             excelarray = result;   
-            const headers = excelarray[0];    
+            const headers = excelarray[0].map(h => h ? h.toString().trim() : h);   
 
             for(let i=1;i<excelarray.length;i++)
               {  
@@ -319,7 +319,7 @@
         for (const section of validSections) 
           {
             const fieldLabel = section.fontSettings.field.trim().toLowerCase();
-            const textToDraw = (fieldLabel === "name") ? capitalizeName(row[fieldLabel] || "") : section.fontSettings.field;
+            const textToDraw = (fieldLabel === "name") ? capitalizeName(row["Name"] || row["name"] || "") : section.fontSettings.field;
 
             if (!textToDraw) continue;
 
@@ -351,7 +351,7 @@
         pdf.addImage(imgData, "JPEG", 0, 0, canvas.width, canvas.height);
 
 
-        const fileName = `${capitalizeName(row["name"])}.pdf`;
+        const fileName = `${capitalizeName(row["Name"] || row["name"] || "Certificate")}.pdf`;
         const pdfBlob = pdf.output("blob");
         zip.file(fileName, pdfBlob);
       }
